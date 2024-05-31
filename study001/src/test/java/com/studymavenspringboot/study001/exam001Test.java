@@ -44,9 +44,9 @@ public class exam001Test {
         assertThat(12).isEqualTo(math.mathTest002(3, 4));
         assertThatThrownBy(() -> math.mathTest002(-1, 10))
                 .isInstanceOf(Exception.class);  // 이 객체가 Exception.class냐 (t/f) class면 true return
-        assertThatThrownBy(() -> math.mathTest002(10, 101))
-                .isInstanceOf(Exception.class);
-    }
+        assertThatThrownBy(() -> math.mathTest002(10, 101)) // 이걸 실행하는데
+                .isInstanceOf(Exception.class);             // 실행한 클래스가 매개변수 클래스로 기대가 된다~ Exception 클래스가 아니면 false
+    }           // isInstanceOf : 데이터형
 
     @Test
     public void test01() throws Exception {
@@ -57,7 +57,7 @@ public class exam001Test {
 
 
         // then
-                    //이 값과                          이 값이 똑같냐? 물어보는 함수                              
+                    //이 값과                          이 값이 똑같냐? 물어보는 함수
         assertThat(1).isEqualTo(math.mathTest003(4, 4));
         assertThat(-1).isEqualTo(math.mathTest003(3, 4));
     }

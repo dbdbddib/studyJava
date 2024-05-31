@@ -43,9 +43,23 @@ public class exam001Test {
         // then
         assertThat(12).isEqualTo(math.mathTest002(3, 4));
         assertThatThrownBy(() -> math.mathTest002(-1, 10))
-                .isInstanceOf(Exception.class);
+                .isInstanceOf(Exception.class);  // 이 객체가 Exception.class냐 (t/f) class면 true return
         assertThatThrownBy(() -> math.mathTest002(10, 101))
                 .isInstanceOf(Exception.class);
+    }
+
+    @Test
+    public void test01() throws Exception {
+        // given
+        MathExam math = new MathExam();
+
+        // when
+
+
+        // then
+                    //이 값과                          이 값이 똑같냐? 물어보는 함수                              
+        assertThat(1).isEqualTo(math.mathTest003(4, 4));
+        assertThat(-1).isEqualTo(math.mathTest003(3, 4));
     }
 }
 

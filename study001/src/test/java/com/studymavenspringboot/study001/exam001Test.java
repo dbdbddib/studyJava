@@ -2,6 +2,8 @@ package com.studymavenspringboot.study001;
 
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class exam001Test {
     @Test
@@ -18,6 +20,11 @@ public class exam001Test {
         assertThat(actual).isEqualTo(expected);
         assertThat(100).isEqualTo(subTest001(300, 200));
         assertThat(100).isEqualTo(subTest001(300, 200));
+
+        assertThatThrownBy(() -> subTest001(70000, 7)).isInstanceOf(Exception.class);
+        Throwable exception = assertThrows(RuntimeException.class, ()-> {
+            subTest001(2330, 50002);
+        });
     }
 
     int subTest001(int n1, int n2) throws Exception{
@@ -25,7 +32,7 @@ public class exam001Test {
             throw new Exception("num1 값은 -50000보다 작거나, num1 값은 50000 보다 큽니다.");
         }
         if(n2 < -50000 || n2 > 50000){
-            throw new Exception("num2 값은 -50000보다 작거나, num2 값은 50000 보다 큽니다.");
+            throw new RuntimeException("num2 값은 -50000보다 작거나, num2 값은 50000 보다 큽니다.");
         }
         return  n1 - n2;
     }

@@ -107,11 +107,10 @@ public class MathExam {
     public String exam120839(String rsp) throws Exception {
         String answer = "";
 
-        if(rsp.length() > 0 && rsp.length() <= 5) {
+        if(rsp.length() > 0 && rsp.length() <= 100) {
 
             for (int i = 0; i < rsp.length(); i++) {
                 char c = rsp.charAt(i);
-
                 if (c == '2') {
                     answer += "0";
                 } else if (c == '0') {
@@ -121,9 +120,32 @@ public class MathExam {
                 }
             }
         } else{
-            throw new Exception(String.format("0 < rsp의 길이 ≤ 5 이어야 합니다."));
+            throw new Exception(String.format("0 < rsp의 길이 ≤ 100 이어야 합니다."));
         }
         System.out.println(answer);
         return answer;
+    }
+
+    public int[] exam120824(int[] num_list) throws Exception{
+        if( num_list == null){
+            throw new Exception(String.format("num_list는 null이 아니어야 합니다."));
+        }
+        if(num_list.length <= 0 || num_list.length > 100){
+            throw new Exception(String.format("num_list배열의 길이는 1~100개 이어야 합니다."));
+        }
+
+        int[] result = new int[] {0,0};
+        for(int i=0; i<num_list.length; i++){
+            if(num_list[i] < 0 || num_list[i] > 1000){
+                throw new Exception(String.format("num_list[%d], 값 : %d 의 범위는 0~1000 이어야 합니다.", i, num_list[i]));
+            }
+            if(num_list[i]%2 == 0){
+                result[0] ++;
+            }
+            else {
+                result[1]++;
+            }
+        }
+        return result;
     }
 }

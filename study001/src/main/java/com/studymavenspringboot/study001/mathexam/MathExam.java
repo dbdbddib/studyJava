@@ -53,5 +53,13 @@ public class MathExam {
         }
         return result;
     }
+
+    public int exam120818() throws Exception {
+        int result = 0;
+
+
+
+        return result;
+    }
 }
 

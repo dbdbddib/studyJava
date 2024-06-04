@@ -161,7 +161,7 @@ public class MathExam {
         int ind = 0;
 
         for (int i = 1; i < num_list.length; i++) {
-            if(num_list[i - 1] < num_list[i]){
+            if(val < num_list[i]){
                 val = num_list[i];
                 ind = i;
             }

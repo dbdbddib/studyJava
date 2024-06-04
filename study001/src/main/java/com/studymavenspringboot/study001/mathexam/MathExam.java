@@ -148,4 +148,25 @@ public class MathExam {
         }
         return result;
     }
+
+    public int[] exam120899(int[] num_list) throws Exception{
+        if( num_list == null){
+            throw new Exception(String.format("num_list는 null이 아니어야 합니다."));
+        }
+        if(num_list.length <= 0 || num_list.length > 100){
+            throw new Exception(String.format("num_list배열의 길이는 1~100개 이어야 합니다."));
+        }
+
+        int val = num_list[0];
+        int ind = 0;
+
+        for (int i = 1; i < num_list.length; i++) {
+            if(num_list[i - 1] < num_list[i]){
+                val = num_list[i];
+                ind = i;
+            }
+        }
+
+        return new int[]{val, ind};
+    }
 }

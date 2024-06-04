@@ -54,11 +54,27 @@ public class MathExam {
         return result;
     }
 
-    public int exam120818() throws Exception {
+    public int exam120818(int price) throws Exception {
         int result = 0;
 
-
-
+        if (price >= 10 && price <= 1000000) {
+            if(price%10 == 0) {
+                if (price >= 100000 && price <= 299999) {
+                    result = (int) (price * 0.95);
+                }
+                if (price >= 300000 && price <= 499999) {
+                    result = (int) (price * 0.90);
+                }
+                if (price >= 500000) {
+                    result = (int) (price * 0.8);
+                }
+            } else{
+                throw new Exception(String.format("10원 단위여야 합니다!"));
+            }
+        } else {
+            throw new Exception(String.format("가격은 10원 ~ 1000000원 사이여야 합니다."));
+        }
+        System.out.println("최종가격:" + result);
         return result;
     }
 }

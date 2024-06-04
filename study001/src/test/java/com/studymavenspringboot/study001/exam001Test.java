@@ -67,6 +67,7 @@ public class exam001Test {
         System.out.println("exam120585");
         MathExam math = new MathExam();
 
+                                    //이것도 class가 Exeption이냐
         Throwable ex1 = assertThrows(Exception.class, () -> math.exam120585(new int[] {}, 150));
         System.out.println(ex1.toString());
         Throwable ex2 = assertThrows(Exception.class, () -> math.exam120585(new int[] {150, 201}, 130));
@@ -76,6 +77,20 @@ public class exam001Test {
 
         assertThat(math.exam120585(new int[] {149, 180, 192, 170}, 167)).isEqualTo(3);
         assertThat(math.exam120585(new int[] {180, 128, 140}, 198)).isEqualTo(0);
+    }
+
+    @Test
+    public void exam120818() throws Exception{
+        System.out.println("exam120818");
+        MathExam math = new MathExam();
+
+        Throwable ex1 = assertThrows(Exception.class, () -> math.exam120818(9));
+        System.out.println(ex1.toString());
+        Throwable ex2 = assertThrows(Exception.class, () -> math.exam120818(1000001));
+        System.out.println(ex2.toString());
+
+        assertThat(math.exam120818(150000)).isEqualTo(142500);
+        assertThat(math.exam120818(580000)).isEqualTo(464000);
     }
 }
 

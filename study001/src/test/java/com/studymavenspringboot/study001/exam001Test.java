@@ -67,7 +67,7 @@ public class exam001Test {
         System.out.println("exam120585");
         MathExam math = new MathExam();
 
-                                    //이것도 class가 Exeption이냐
+        //이 부분은 Exception 확인 부분
         Throwable ex1 = assertThrows(Exception.class, () -> math.exam120585(new int[] {}, 150));
         System.out.println(ex1.toString());
         Throwable ex2 = assertThrows(Exception.class, () -> math.exam120585(new int[] {150, 201}, 130));
@@ -75,6 +75,7 @@ public class exam001Test {
         Throwable ex3 = assertThrows(Exception.class, () -> math.exam120585(new int[] {150, 180}, 201));
         System.out.println(ex3.toString());
 
+        //이 부분은 실제 값과 예상값이 같냐
         assertThat(math.exam120585(new int[] {149, 180, 192, 170}, 167)).isEqualTo(3);
         assertThat(math.exam120585(new int[] {180, 128, 140}, 198)).isEqualTo(0);
     }
@@ -84,13 +85,32 @@ public class exam001Test {
         System.out.println("exam120818");
         MathExam math = new MathExam();
 
+        //이 부분은 Exception 확인 부분
         Throwable ex1 = assertThrows(Exception.class, () -> math.exam120818(9));
         System.out.println(ex1.toString());
         Throwable ex2 = assertThrows(Exception.class, () -> math.exam120818(1000001));
         System.out.println(ex2.toString());
 
+        //이 부분은 실제 값과 예상값이 같냐
         assertThat(math.exam120818(150000)).isEqualTo(142500);
         assertThat(math.exam120818(580000)).isEqualTo(464000);
+    }
+
+    @Test
+    public void exam120837() throws Exception{
+        System.out.println("exam120837");
+        MathExam math = new MathExam();
+
+        //이 부분은 Exception 확인 부분
+        Throwable ex1 = assertThrows(Exception.class, () -> math.exam120837(-1));
+        System.out.println(ex1.toString());
+        Throwable ex2 = assertThrows(Exception.class, () -> math.exam120837(1001));
+        System.out.println(ex2.toString());
+
+        //이 부분은 실제 값과 예상값이 같냐
+        assertThat(math.exam120837(23)).isEqualTo(5);
+        assertThat(math.exam120837(24)).isEqualTo(6);
+        assertThat(math.exam120837(999)).isEqualTo(201);
     }
 }
 

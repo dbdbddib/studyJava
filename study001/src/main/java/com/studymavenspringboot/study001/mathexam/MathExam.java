@@ -103,5 +103,27 @@ public class MathExam {
         System.out.println("개미 군단 필요 수: " + result);
         return result;
     }
-}
 
+    public String exam120839(String rsp) throws Exception {
+        String answer = "";
+
+        if(rsp.length() > 0 && rsp.length() <= 5) {
+
+            for (int i = 0; i < rsp.length(); i++) {
+                char c = rsp.charAt(i);
+
+                if (c == '2') {
+                    answer += "0";
+                } else if (c == '0') {
+                    answer += "5";
+                } else if (c == '5') {
+                    answer += "2";
+                }
+            }
+        } else{
+            throw new Exception(String.format("0 < rsp의 길이 ≤ 5 이어야 합니다."));
+        }
+        System.out.println(answer);
+        return answer;
+    }
+}

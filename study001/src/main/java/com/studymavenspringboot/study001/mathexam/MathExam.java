@@ -1,5 +1,7 @@
 package com.studymavenspringboot.study001.mathexam;
 
+
+
 public class MathExam {
     public int subTest001(int n1, int n2) throws Exception{
         if(n1 < -50000 || n1 > 50000){
@@ -166,7 +168,8 @@ public class MathExam {
                 ind = i;
             }
         }
-
         return new int[]{val, ind};
     }
+
+    
 }

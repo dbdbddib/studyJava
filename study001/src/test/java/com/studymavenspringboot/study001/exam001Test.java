@@ -2,12 +2,18 @@ package com.studymavenspringboot.study001;
 
 import com.studymavenspringboot.study001.mathexam.MathExam;
 import org.junit.jupiter.api.Test;
+
+import java.util.Scanner;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 public class exam001Test {
+
+
+
     @Test
     public void subtract001() throws Exception{
         // given    테스트하기 위한 준비 동장

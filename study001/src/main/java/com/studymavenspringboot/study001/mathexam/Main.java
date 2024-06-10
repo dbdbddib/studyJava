@@ -1,11 +1,12 @@
 package com.studymavenspringboot.study001.mathexam;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         try {
-            codeup1180();
+            codeup1218();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -50,18 +51,59 @@ public class Main {
         }
     }
 
+    public static void codeup1218(){
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        int c = sc.nextInt();
 
 
-    
+        if(a == b && a == c){
+            System.out.println("정삼각형");
+        } else if (a == b && c!= b || b == c && b != a){
+            System.out.println("이등변삼각형");
+        } else {
+            if ((a*a + b*b) == c*c){
+                System.out.println("직각삼각형");
+            } else {
+                System.out.println("삼각형");
+            }
+        }
+    }
+
+    public static void codeup1226(){
+        Scanner sc = new Scanner(System.in);
+        String first = sc.nextLine();
+        String second = sc.nextLine();
+
+        int[] successArr = getIntArraySorted(first, 7);
+
+        int[] tryArr = getIntArraySorted(second, 6);
+    }
+
+    private static int[] getIntArraySorted(String first, int x) {
+        String[] inputStr = first.split(" ");
+        int[] outputArray = new int[x];
+
+        for (int i = 0; i < inputStr.length; i++) {
+            outputArray[i] = Integer.parseInt((inputStr[i]));
+        }
+        Arrays.sort(outputArray);
+        return outputArray;
+    }
+
+    public static void codeup1231(){
+
+    }
+
+
+
 
 //    public static void codeup1180() throws Exception{
 //        T1 t = new T1();
 //        t.start();
 //    }
-
-
-
-}
+}   //Main
 
 class T1 extends Thread {
     @Override

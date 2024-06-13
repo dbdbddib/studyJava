@@ -1,3 +1,6 @@
+Intellij    Ctrl + Alt + l  ->  정리
+
+
 this 는 객체가 된 자기 자신을 말한다...  (new가 된 자기 자신)
 
 #if(! static)

@@ -110,25 +110,28 @@ public class Main {
 
         }
 
-
         for (int i = 0; i < students.length; i++) {
             for (int j = i; j < students.length; j++) {
                 if (students[i].getScore() < students[j].getScore()) {
-                    String tempName = students[i].getName();
-                    int tempScore = students[i].getScore();
+                    Student tempStudent = students[i];
+                    students[i] = students[j];
+                    students[j] = tempStudent;
 
-                    students[i].setName(students[j].getName());
-                    students[i].setScore(students[j].getScore());
-
-                    students[j].setName(tempName);
-                    students[j].setScore(tempScore);
+//                    String tempName = students[i].getName();
+//                    int tempScore = students[i].getScore();
+//
+//                    students[i].setName(students[j].getName());
+//                    students[i].setScore(students[j].getScore());
+//
+//                    students[j].setName(tempName);
+//                    students[j].setScore(tempScore);
                 }
             }
         }
-            for (int i = 0; i < displayCount; i++) {
-                System.out.println(students[i]);
-            }
+        for (int i = 0; i < displayCount; i++) {
+            System.out.println(students[i]);
         }
+    }
 
 
 }   //Main

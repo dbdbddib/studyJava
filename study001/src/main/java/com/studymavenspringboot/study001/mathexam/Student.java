@@ -13,9 +13,6 @@ public class Student {
 
     @Override
     public  String toString(){
-
         return String.format("이름: %s, 점수: %d", name, score);
     }
-
-
 }

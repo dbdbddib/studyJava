@@ -171,5 +171,6 @@ public class MathExam {
         return new int[]{val, ind};
     }
 
+
     
 }

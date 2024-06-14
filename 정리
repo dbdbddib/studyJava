@@ -1,5 +1,7 @@
 ---
 겟터 셋터 롬복에 대해 공부하자!
+import lombok.Getter;
+import lombok.Setter;
 
 ---
 Intellij    

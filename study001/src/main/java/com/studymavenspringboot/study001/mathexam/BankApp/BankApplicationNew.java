@@ -1,36 +1,37 @@
 package com.studymavenspringboot.study001.mathexam.BankApp;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.nio.charset.Charset;
 import java.util.Scanner;
 
 public class BankApplicationNew {
     private AccountService accountService = new AccountService();
 
-    private void printHeader() {
-        System.out.println("========================================================");
-        System.out.println("1.계좌생성|2.계좌목록|3.예금|4.출금|5.종료|6.파일읽기|7.파일저장");
-        System.out.println("========================================================");
+    private void printMenu() {
+        System.out.println("\n========================================================");
+        System.out.println("1.계좌생성|2.계좌목록|3.예금|4.출금|5.종료");
+        System.out.println("========================================================\n");
+        living();
     }
 
-    private int getChoice(Scanner input) throws Exception {
+    private int getUserChoice(Scanner input) throws Exception {
         System.out.print("선택 > ");
         String a = input.nextLine();
         return Integer.parseInt(a);
     }
 
-    private void addAccount(Scanner input) throws Exception {
+    private void createAccount(Scanner input) throws Exception {
         System.out.println("--------");
         System.out.println("계좌생성");
         System.out.println("--------");
 
         System.out.print("계좌번호:");
         String bankNumber = input.nextLine();
+
+        // 계좌 중복 확인
+        if(accountService.findAccount(bankNumber) != null){
+            System.out.println("\n계좌번호:'" + bankNumber + "'은 중복으로 인한 생성 불가능....");
+            return;
+        }
+
         System.out.print("계좌주:");
         String name = input.nextLine();
         System.out.print("초기입금액:");
@@ -40,143 +41,121 @@ public class BankApplicationNew {
         this.accountService.addAccount(new Account(name, bankNumber, money));
     }
 
-    private void printAccounts() {
-        for (Account account : this.accountService.getAllAccount()) {
-            System.out.println(account.toString());
-        }
+    private void displayAccounts() {
+        living();
     }
 
-    private void income(Scanner input) throws Exception {
-        Account result = getInputConsole(input, "예금");
-        if (result == null) {
+    private void depositFunds(Scanner input) throws Exception {
+        Account result = getAccountDetails(input, "예금");
+
+        if ( result == null ) {
             System.out.println("에러: 계좌가 존재하지 않습니다.");
             return;
         }
-        if (this.accountService.deposit(result.getBankNumber(), result.getCurrent())) {
+        if ( this.accountService.deposit(result.getBankNumber(), result.getCurrent()) ) {
             System.out.println("결과: 예금이 성공되었습니다.");
         }
     }
 
-    private void outcome(Scanner input) throws Exception {
-        Account result = getInputConsole(input, "출금");
-        if (result == null) {
-            System.out.println("에러: 계좌가 존재하지 않습니다.");
+
+    private void withdrawFunds(Scanner input) throws Exception {
+        Account result = getAccountDetails(input, "출금");
+        if ( result == null ) {
+            System.out.println("에러: 계좌가 존재하지 않습니다.\n");
+            living();
             return;
         }
-        if (this.accountService.withdraw(result.getBankNumber(), result.getCurrent())) {
+        if ( this.accountService.withdraw(result.getBankNumber(), result.getCurrent()) ) {
             System.out.println("결과: 출금이 성공되었습니다.");
         } else {
             System.out.println("에러: 출금이 안되었습니다.");
         }
     }
 
-    private Account getInputConsole(Scanner input, String title) {
+    private Account getAccountDetails(Scanner input, String title) {
         System.out.println("--------");
-        System.out.println(title);
+        System.out.println(title);  // 예금, 출금
         System.out.println("--------");
 
         System.out.print("계좌번호:");
-        String bankNumber = input.nextLine();
-        Account account = this.accountService.findAccountByNumber(bankNumber);
-        if (account == null) {
+
+        String bankNumber = input.nextLine();   // 계좌번호 받는 변수
+
+        // 계좌번호 받고 계좌 찾는
+        Account account = this.accountService.findAccount(bankNumber);
+
+        if ( account == null ) {
             return null;
         }
         System.out.print(title + "액:");
-        String current = input.nextLine();
+        String current = input.nextLine();  // 예금액, 출금액
         int money = Integer.parseInt(current);
+
+
 
         return new Account("임시명", bankNumber, money);
     }
 
-    private void loadJson(Scanner input) throws Exception {
-        System.out.println("--------");
-        System.out.println("파일읽기");
-        System.out.println("--------");
 
-        System.out.print("파일이름:");
-        String fileName = input.nextLine();
-
-        JSONParser parser = new JSONParser();
-        FileReader reader = new FileReader(fileName, Charset.defaultCharset());
-        Object jobj = parser.parse(reader);
-
-        JSONObject jsonObject = (JSONObject) jobj;
-        reader.close();
-        System.out.print(jsonObject);
-
-        JSONArray jsonArray = (JSONArray) jsonObject.get("accounts");
-        this.accountService.clear();
-        for (Object obj : jsonArray) {
-            JSONObject element = (JSONObject) obj;
-            String name = (String) element.get("name");
-            String bankAccount = (String) element.get("bankAccount");
-            Long current = (Long) element.get("current");
-            this.accountService.addAccount(new Account(name, bankAccount, current.intValue()));
+    // 계좌정보에 대한 함수
+    private void living() {
+        int n = 0;
+        if(accountService.size() == 0) {
+            System.out.println("현재 생성된 계좌가 존재하지 않습니다.\n");
+        } else {
+            for (Account account : this.accountService.getAllAccount()) {
+                System.out.println((n + 1) + ". 계좌번호: " + account.getBankNumber() + "\t\t금액: " +
+                        account.getCurrent() + "\t\t계좌주: " + account.getName() + "\n");
+                n++;
+            }
         }
     }
 
-    private void saveJson(Scanner input) throws Exception {
-        System.out.println("--------");
-        System.out.println("파일저장");
-        System.out.println("--------");
-
-        System.out.print("파일이름:");
-        String fileName = input.nextLine();
-
-        JSONArray jsonArray = new JSONArray();
-        for (Account account : this.accountService.getAllAccount()) {
-            JSONObject jobj = new JSONObject();
-            jobj.put("name", account.getName());
-            jobj.put("bankAccount", account.getBankNumber());
-            jobj.put("current", account.getCurrent());
-            jsonArray.add(jobj);
-        }
-        JSONObject jroot = new JSONObject();
-        jroot.put("accounts", jsonArray);
-
-        FileWriter fileWriter = new FileWriter(fileName, Charset.defaultCharset());
-        fileWriter.write(jroot.toString());
-        fileWriter.flush();
-        fileWriter.close();
-    }
 
     public static void main(String[] args) {
         try {
             BankApplicationNew bapp = new BankApplicationNew();
-            Scanner input = new Scanner(System.in);
-            boolean run = true;
-            while (run) {
-                bapp.printHeader();
-                int choice = bapp.getChoice(input);
+
+            Scanner sc = new Scanner(System.in);
+
+            boolean isRunning = true;
+
+            while(isRunning) {
+                bapp.printMenu();
+                int choice = bapp.getUserChoice(sc);
                 switch (choice) {
                     case 1:
-                        bapp.addAccount(input);
+                        bapp.createAccount(sc);
                         break;
                     case 2:
-                        bapp.printAccounts();
+                        bapp.displayAccounts();
                         break;
                     case 3:
-                        bapp.income(input);
+                        bapp.depositFunds(sc);
                         break;
                     case 4:
-                        bapp.outcome(input);
+                        bapp.withdrawFunds(sc);
                         break;
                     case 5:
-                        run = false;
-                        break;
-                    case 6:
-                        bapp.loadJson(input);
-                        break;
-                    case 7:
-                        bapp.saveJson(input);
+                        isRunning = false;
                         break;
                     default:
                         System.out.println("!!! 잘못된 입력입니다. !!!");
                         break;
                 }
-            }
+
+                // 메뉴 다시 표시 전 사용자에게 묻는 기능
+                if (choice != 5) {
+                    System.out.print("\n계속하시겠습니까? (y/n): ");
+                    String continueChoice = sc.nextLine().trim();
+                    if (!continueChoice.equalsIgnoreCase("y")) {
+                        isRunning = false;
+                    }
+                } // if
+            } // while
         } catch (Exception e) {
             System.out.println(e.toString());
+            e.printStackTrace();
         }
-    }
-}
+    } // main()
+} // class

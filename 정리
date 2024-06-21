@@ -21,6 +21,14 @@ java document
 public은 꼭 해주면 좋다
 private는 해도되고 안해도 되고
 
+-------------
+
+List<Integer> A 
+
+for ( int a : A ) {
+
+}
+
 
 -------------
 .jar  ->  라이브러리 

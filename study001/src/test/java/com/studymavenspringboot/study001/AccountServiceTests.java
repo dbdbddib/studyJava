@@ -16,7 +16,7 @@ public class AccountServiceTests {
 
         assertThat(accountService.size()).isEqualTo(1);
 
-        Account find = accountService.findAccount("111-111");
+        Account find = accountService.findAccountByNumber("111-111");
         assertThat(find).isNotNull();
         assertThat(find.getName()).isEqualTo("유병훈");
         assertThat(find.getCurrent()).isEqualTo(20000);
@@ -32,11 +32,11 @@ public class AccountServiceTests {
         boolean result = accountService.deposit("222-222", 10000);
         assertThat(result).isEqualTo(true);
 
-        Account find = accountService.findAccount("222-222");
+        Account find = accountService.findAccountByNumber("222-222");
         assertThat(find).isNotNull();
         assertThat(find.getCurrent()).isEqualTo(40000);
 
-        Account find2 = accountService.findAccount("444-444");
+        Account find2 = accountService.findAccountByNumber("444-444");
         assertThat(find2).isNull();
     }
 
@@ -49,17 +49,17 @@ public class AccountServiceTests {
         boolean result = accountService.withdraw("333-333", 20000);
         assertThat(result).isEqualTo(true);
 
-        Account find = accountService.findAccount("333-333");
+        Account find = accountService.findAccountByNumber("333-333");
         assertThat(find).isNotNull();
         assertThat(find.getCurrent()).isEqualTo(20000);
 
-        Account find2 = accountService.findAccount("555-555");
+        Account find2 = accountService.findAccountByNumber("555-555");
         assertThat(find2).isNull();
 
         boolean result2 = accountService.withdraw("333-333", 30000);
         assertThat(result2).isEqualTo(false);
 
-        Account find3 = accountService.findAccount("333-333");
+        Account find3 = accountService.findAccountByNumber("333-333");
         assertThat(find3).isNotNull();
         assertThat(find3.getCurrent()).isEqualTo(20000);
     }

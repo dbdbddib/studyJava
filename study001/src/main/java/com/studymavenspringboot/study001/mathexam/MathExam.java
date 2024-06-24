@@ -151,7 +151,7 @@ public class MathExam {
         return result;
     }
 
-    public int[] exam120899(int[] num_list) throws Exception{
+    public int[] codeUp1602(int[] num_list) throws Exception{
         if( num_list == null){
             throw new Exception(String.format("num_list는 null이 아니어야 합니다."));
         }
@@ -171,6 +171,11 @@ public class MathExam {
         return new int[]{val, ind};
     }
 
-
-    
+    public double codeUp1602(double abs) {
+        if (abs < 0) {
+            abs *= -1;
+        }
+        System.out.println();
+        return abs;
+    }
 }

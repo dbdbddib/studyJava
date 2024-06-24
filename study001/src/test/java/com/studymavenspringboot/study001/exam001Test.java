@@ -1,21 +1,20 @@
 package com.studymavenspringboot.study001;
 
 import com.studymavenspringboot.study001.mathexam.MathExam;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.util.Scanner;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 public class exam001Test {
 
 
-
     @Test
-    public void subtract001() throws Exception{
+    public void subtract001() throws Exception {
         // given    테스트하기 위한 준비 동장
         MathExam math = new MathExam();
         int num1 = 2;
@@ -33,7 +32,7 @@ public class exam001Test {
         //Exception 예외가 발생해야지만 정상 동작으로 인식한다.
         assertThatThrownBy(() -> math.subTest001(70000, 7)).isInstanceOf(Exception.class);
         // RuntimeException 예외가 발생해야지만 정상 동작으로 인식한다.
-        Throwable exception = assertThrows(RuntimeException.class, ()-> {
+        Throwable exception = assertThrows(RuntimeException.class, () -> {
             math.subTest001(2330, 50002);
         });
     }
@@ -63,7 +62,7 @@ public class exam001Test {
 
 
         // then
-                    //이 값과                          이 값이 똑같냐? 물어보는 함수
+        //이 값과                          이 값이 똑같냐? 물어보는 함수
         assertThat(1).isEqualTo(math.mathTest003(4, 4));
         assertThat(-1).isEqualTo(math.mathTest003(3, 4));
     }
@@ -74,20 +73,20 @@ public class exam001Test {
         MathExam math = new MathExam();
 
         //이 부분은 Exception 확인 부분
-        Throwable ex1 = assertThrows(Exception.class, () -> math.exam120585(new int[] {}, 150));
+        Throwable ex1 = assertThrows(Exception.class, () -> math.exam120585(new int[]{}, 150));
         System.out.println(ex1.toString());
-        Throwable ex2 = assertThrows(Exception.class, () -> math.exam120585(new int[] {150, 201}, 130));
+        Throwable ex2 = assertThrows(Exception.class, () -> math.exam120585(new int[]{150, 201}, 130));
         System.out.println(ex2.toString());
-        Throwable ex3 = assertThrows(Exception.class, () -> math.exam120585(new int[] {150, 180}, 201));
+        Throwable ex3 = assertThrows(Exception.class, () -> math.exam120585(new int[]{150, 180}, 201));
         System.out.println(ex3.toString());
 
         //이 부분은 실제 값과 예상값이 같냐
-        assertThat(math.exam120585(new int[] {149, 180, 192, 170}, 167)).isEqualTo(3);
-        assertThat(math.exam120585(new int[] {180, 128, 140}, 198)).isEqualTo(0);
+        assertThat(math.exam120585(new int[]{149, 180, 192, 170}, 167)).isEqualTo(3);
+        assertThat(math.exam120585(new int[]{180, 128, 140}, 198)).isEqualTo(0);
     }
 
     @Test
-    public void exam120818() throws Exception{
+    public void exam120818() throws Exception {
         System.out.println("exam120818");
         MathExam math = new MathExam();
 
@@ -103,7 +102,7 @@ public class exam001Test {
     }
 
     @Test
-    public void exam120837() throws Exception{
+    public void exam120837() throws Exception {
         System.out.println("exam120837");
         MathExam math = new MathExam();
 
@@ -137,16 +136,16 @@ public class exam001Test {
     }
 
     @Test
-    public void exam120824() throws Exception{
+    public void exam120824() throws Exception {
         MathExam math = new MathExam();
 
         Throwable ex1 = assertThrows(Exception.class, () -> math.exam120824(null));
         System.out.println(ex1.toString());
-        Throwable ex2 = assertThrows(Exception.class, () -> math.exam120824(new int[] {}));
+        Throwable ex2 = assertThrows(Exception.class, () -> math.exam120824(new int[]{}));
         System.out.println(ex2.toString());
 
-        assertThat(math.exam120824(new int[] {1, 2, 3, 4, 5})).isEqualTo(new int[] {2,3});
-        assertThat(math.exam120824(new int[] {1, 3, 5, 7})).isEqualTo(new int[] {0,4});
+        assertThat(math.exam120824(new int[]{1, 2, 3, 4, 5})).isEqualTo(new int[]{2, 3});
+        assertThat(math.exam120824(new int[]{1, 3, 5, 7})).isEqualTo(new int[]{0, 4});
     }
 
     @Test
@@ -155,15 +154,41 @@ public class exam001Test {
         MathExam math = new MathExam();
 
         //이 부분은 Exception 확인 부분
-        Throwable ex1 = assertThrows(Exception.class, () -> math.exam120899(null));
+        Throwable ex1 = assertThrows(Exception.class, () -> math.codeUp1602(null));
         System.out.println(ex1.toString());
-        Throwable ex2 = assertThrows(Exception.class, () -> math.exam120899(new int[] {}));
+        Throwable ex2 = assertThrows(Exception.class, () -> math.codeUp1602(new int[]{}));
         System.out.println(ex2.toString());
 
         //이 부분은 실제 값과 예상값이 같냐
-        assertThat(math.exam120899(new int[] {1, 8, 3})).isEqualTo(new int[] {8, 1});
-        assertThat(math.exam120899(new int[] {9, 10, 11, 8})).isEqualTo(new int[] {11, 2});
+        assertThat(math.codeUp1602(new int[]{1, 8, 3})).isEqualTo(new int[]{8, 1});
+        assertThat(math.codeUp1602(new int[]{9, 10, 11, 8})).isEqualTo(new int[]{11, 2});
 
+    }
+
+    @Test
+    public void numberOf1BitsTest() {
+        assertThat(numSetBits(0)).isEqualTo(0);
+        assertThat(numSetBits(987)).isEqualTo(7);
+        assertThat(numSetBits(11)).isEqualTo(3);
+    }
+
+    public int numSetBits(long a) {
+        String str =Long.toBinaryString(a);
+        System.out.println(String.format("%s", str));
+        return 0;
+    }
+
+    @Test
+    public void codeUp1602() throws Exception {
+        System.out.println("codeUp1602");
+        MathExam math = new MathExam();
+
+
+        //이 부분은 실제 값과 예상값이 같냐
+        double result = math.codeUp1602(-2.5);
+        Assertions.assertEquals(2.5, result, 0.0001);
+        double result1 = math.codeUp1602(-2.55555);
+        Assertions.assertEquals(2.55555, result1, 0.0001);
     }
 }
 

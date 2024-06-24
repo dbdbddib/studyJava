@@ -18,53 +18,53 @@ public class Main {
         int hour = input.nextInt();
         int mins = input.nextInt();
 
-        if(hour<0 || hour >= 24){
+        if (hour < 0 || hour >= 24) {
             throw new Exception(String.format("시간(%d)은 0~24 이어야 합니다.", hour));
-        } else if(mins<0 || mins >= 60){
+        } else if (mins < 0 || mins >= 60) {
             throw new Exception(String.format("시간(%d)은 0~59 이어야 합니다.", mins));
         }
         int nextMins = mins - 30;
-        if(nextMins < 0){
+        if (nextMins < 0) {
             hour = (hour <= 0) ? 23 : hour--;
             nextMins += 60;
         }
         System.out.println(String.format("%d %d", hour, nextMins));
     }
 
-    public static void codeup1180() throws Exception{
+    public static void codeup1180() throws Exception {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        if(n<=0 || n >= 100){
+        if (n <= 0 || n >= 100) {
             throw new Exception(String.format("n(%d)은 0~100 이어야 합니다.", n));
         }
 
-        int one = n/10;
+        int one = n / 10;
         int ten = (n % 10) * 10;
-        int result = (one + ten) *2;
-        if( result > 100 ){
+        int result = (one + ten) * 2;
+        if (result > 100) {
             result %= 100;
         }
         System.out.println(String.format("%d", result));
-        if(result <= 50) {
+        if (result <= 50) {
             System.out.println("GOOD");
         } else {
             System.out.println("OH MY GOD");
         }
     }
 
-    public static void codeup1218(){
+    public static void codeup1218() {
         Scanner sc = new Scanner(System.in);
         int a = sc.nextInt();
         int b = sc.nextInt();
         int c = sc.nextInt();
 
 
-        if(a == b && a == c){
+        if (a == b && a == c) {
             System.out.println("정삼각형");
-        } else if (a == b && c!= b || b == c && b != a){
+        } else if (a == b && c != b || b == c && b != a) {
             System.out.println("이등변삼각형");
         } else {
-            if ((a*a + b*b) == c*c){
+            if ((a * a + b * b) == c * c) {
                 System.out.println("직각삼각형");
             } else {
                 System.out.println("삼각형");
@@ -72,7 +72,7 @@ public class Main {
         }
     }
 
-    public static void codeup1226(){
+    public static void codeup1226() {
         Scanner sc = new Scanner(System.in);
         String first = sc.nextLine();
         String second = sc.nextLine();
@@ -132,7 +132,6 @@ public class Main {
             System.out.println(students[i]);
         }
     }
-
 
 }   //Main
 

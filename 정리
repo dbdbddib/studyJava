@@ -145,6 +145,13 @@ json
 키 : 값
 hashmap과 유사
 
+------------------
+Edit Configurations -> Run/Debug Configurations -> Build and run
+값은 main(String[] args)  String 매개변수 값에 들어감
+
+
+---------------
+static은 멤버변수로 접근 불가
 
 
 

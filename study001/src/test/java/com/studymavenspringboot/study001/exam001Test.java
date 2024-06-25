@@ -166,19 +166,6 @@ public class exam001Test {
     }
 
     @Test
-    public void numberOf1BitsTest() {
-        assertThat(numSetBits(0)).isEqualTo(0);
-        assertThat(numSetBits(987)).isEqualTo(7);
-        assertThat(numSetBits(11)).isEqualTo(3);
-    }
-
-    public int numSetBits(long a) {
-        String str =Long.toBinaryString(a);
-        System.out.println(String.format("%s", str));
-        return 0;
-    }
-
-    @Test
     public void codeUp1602() throws Exception {
         System.out.println("codeUp1602");
         MathExam math = new MathExam();

@@ -7,8 +7,8 @@ import java.util.List;
 public class AccountFileRepository implements AccountRepository {
     private String fileName;
 
-    public AccountFileRepository(String fileName) {
-        this.fileName = fileName;
+    public AccountFileRepository(String filename) {
+        fileName = filename;
     }
 
     @Override

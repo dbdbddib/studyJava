@@ -16,27 +16,26 @@ public class AccountJSONRepository implements AccountRepository {
     public AccountJSONRepository(String fileName) {
         this.fileName = fileName;
     }
-
     @Override
     public void loadJson(List<Account> accountList) throws Exception {
-        if (accountList == null) {
+        if ( accountList == null ) {
             return;
         }
         JSONParser parser = new JSONParser();
         File file = new File(fileName);
-        if (!file.exists()) {
+        if ( !file.exists() ) {
             return; // 파일이 없을때 실행하면 예외 없도록 처리함
         }
         FileReader reader = new FileReader(file, Charset.defaultCharset());
-        JSONObject jsonObject = (JSONObject) parser.parse(reader);
+        JSONObject jsonObject = (JSONObject)parser.parse(reader);
 
         reader.close();
 //        System.out.print(jsonObject);
 
         JSONArray jsonArray = (JSONArray) jsonObject.get("accounts");
         accountList.clear();
-        for (Object obj : jsonArray) {
-            JSONObject element = (JSONObject) obj;
+        for ( Object obj : jsonArray ) {
+            JSONObject element = (JSONObject)obj;
             String name = (String) element.get("name");
             String bankAccount = (String) element.get("bankAccount");
             Long current = (Long) element.get("current");
@@ -46,11 +45,11 @@ public class AccountJSONRepository implements AccountRepository {
 
     @Override
     public void saveJson(List<Account> accountList) throws Exception {
-        if (accountList == null || accountList.size() <= 0) {
+        if ( accountList == null || accountList.size() <= 0 ) {
             return;
         }
         JSONArray jsonArray = new JSONArray();
-        for (Account account : accountList) {
+        for ( Account account : accountList ) {
             JSONObject jobj = new JSONObject();
             jobj.put("name", account.getName());
             jobj.put("bankAccount", account.getBankNumber());

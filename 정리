@@ -3,6 +3,7 @@
 import lombok.Getter;
 import lombok.Setter;
 
+한 프로젝트에 하나의 메인
 -------------
 Intellij    
 

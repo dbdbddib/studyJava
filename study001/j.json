@@ -1,0 +1,24 @@
+{
+  "accounts": [
+    {
+      "bankAccount": "123",
+      "current": 123,
+      "name": "123"
+    },
+    {
+      "bankAccount": "1231321",
+      "current": 321321231,
+      "name": "32132132"
+    },
+    {
+      "bankAccount": "123",
+      "current": 321,
+      "name": "321"
+    },
+    {
+      "bankAccount": "3214",
+      "current": 3214,
+      "name": "3214"
+    }
+  ]
+}

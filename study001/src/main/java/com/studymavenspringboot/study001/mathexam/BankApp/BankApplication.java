@@ -5,8 +5,10 @@ import java.util.Scanner;
 public class BankApplication {
     private AccountService accountService = new AccountService();
     private AccountRepository accountRepository;
-    private AccountJSONRepository accountJsonRepository = new AccountJSONRepository();
-    private AccountFileRepository accountFileRepository = new AccountFileRepository();
+
+    public BankApplication(AccountRepository repository) {
+        this.accountRepository = repository;
+    }
 
     private void printHeader() {
         System.out.println("=====================================");
@@ -96,7 +98,21 @@ public class BankApplication {
     }
 
     public static void main(String[] args) {
-        BankApplication bapp = new BankApplication();
+        if (args.length < 1) {
+            System.out.println("execute BankApplication -j or -t");
+            return;
+        }
+        AccountRepository repository;
+        String fileName = args[1];
+        if ("-j".equals(args[0])) {
+            repository = new AccountJSONRepository(fileName);
+        } else if ("-t".equals(args[0])) {
+            repository = new AccountFileRepository(fileName);
+        } else {
+            System.out.println("execute BankApplication -j or -t");
+            return;
+        }
+        BankApplication bapp = new BankApplication(repository);
         Scanner input = new Scanner(System.in);
         boolean run = true;
 

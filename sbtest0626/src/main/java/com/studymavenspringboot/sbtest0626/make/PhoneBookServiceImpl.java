@@ -32,7 +32,7 @@ public class PhoneBookServiceImpl implements IPhoneBookService<IPhoneBook> {
      * @return get Maximum id number value
      */
     @Override
-    public Long getMaxId() {
+    public Long getMaxId() {        // for문 바이너리 서치로 바꾸기
         Long nMax = 0L;
         for ( IPhoneBook obj : this.list ) {
             if ( nMax < obj.getId() ) {
@@ -43,7 +43,7 @@ public class PhoneBookServiceImpl implements IPhoneBookService<IPhoneBook> {
     }
 
     @Override
-    public IPhoneBook findById(Long id) {
+    public IPhoneBook findById(Long id) {       // for문 바이너리 서치로 바꾸기
         for ( IPhoneBook obj : this.list ) {
             if ( id.equals(obj.getId()) ) {
                 return obj;
@@ -53,7 +53,7 @@ public class PhoneBookServiceImpl implements IPhoneBookService<IPhoneBook> {
     }
 
     @Override
-    public List<IPhoneBook> getAllList() {
+    public List<IPhoneBook> getAllList() {  // list 스트림
         return this.list;
     }
 

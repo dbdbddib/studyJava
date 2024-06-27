@@ -32,13 +32,16 @@ public class PhoneBookRepositoryTests {
         phoneBook2.setGroup(EPhoneGroup.Hobbies);
         phoneBook2.setPhoneNumber("1111-2222");
         phoneBook2.setEmail("abcdefg@daum.net");
+
         JSONObject jobject = repository.getJsonFromObject(phoneBook2);
+
         assertThat((Long) jobject.get("id")).isEqualTo(88L);
         assertThat((String) jobject.get("name")).isEqualTo("폰북");
         assertThat(EPhoneGroup.valueOf((String) jobject.get("group"))).isEqualTo(EPhoneGroup.Hobbies);
         assertThat((String) jobject.get("group")).isEqualTo("Hobbies");
         assertThat((String) jobject.get("phoneNumber")).isEqualTo("1111-2222");
         assertThat((String) jobject.get("email")).isEqualTo("abcdefg@daum.net");
+        assertThat(jobject.toJSONString()).isEqualTo("{\"phoneNumber\":\"1111-2222\",\"name\":\"폰북\",\"id\":88,\"email\":\"abcdefg@daum.net\",\"group\":\"Hobbies\"}");
     }
 
     @Test

@@ -80,10 +80,7 @@ public class ConsoleApplication {
         System.out.print("이메일 :");
         String email = input.nextLine();
 
-        if (this.phoneBookService.insert(name, group, phone, email)) {
-            this.phoneBookService.saveData();
-            System.out.println("결과: 데이터 추가 성공되었습니다.");
-        }
+        updateSuccess(this.phoneBookService.insert(name, group, phone, email), "결과: 데이터 추가 성공되었습니다.");
     }
 
     public void update(Scanner input) throws Exception {
@@ -92,20 +89,55 @@ public class ConsoleApplication {
             System.out.println("에러: ID 데이터 가 존재하지 않습니다.");
             return;
         }
-        System.out.print("연락처 이름 :");
-        String name = input.nextLine();
-        EPhoneGroup group = this.getGroupFromScanner(input, "");
-        System.out.print("전화번호 :");
-        String phone = input.nextLine();
-        System.out.print("이메일 :");
-        String email = input.nextLine();
-        IPhoneBook update = PhoneBook.builder()
-                .id(result.getId()).name(name)
-                .group(group)
-                .phoneNumber(phone).email(email).build();
-        if (this.phoneBookService.update(update.getId(), update)) {
+        System.out.println("수정 부분 선택");
+        System.out.print("1.이름|2.전화번호|3.이메일|4.all -> ");
+
+        int num = input.nextInt();      // 수정 부분 선택 번호
+        input.nextLine();
+
+        switch (num) {
+            case 1:
+                System.out.print("연락처 이름 :");
+                String name = input.nextLine();
+                result.setName(name);
+                break;
+            case 2:
+                System.out.print("전화번호 :");
+                String phone = input.nextLine();
+                result.setPhoneNumber(phone);
+                break;
+            case 3:
+                System.out.print("이메일 :");
+                String email = input.nextLine();
+                result.setEmail(email);
+                break;
+            case 4:
+                System.out.print("연락처 이름 :");
+                name = input.nextLine();
+
+                EPhoneGroup group = this.getGroupFromScanner(input, "");
+
+                System.out.print("전화번호 :");
+                phone = input.nextLine();
+
+                System.out.print("이메일 :");
+                email = input.nextLine();
+
+                IPhoneBook update = PhoneBook.builder()
+                        .id(result.getId()).name(name)
+                        .group(group)
+                        .phoneNumber(phone)
+                        .email(email).build();
+
+                updateSuccess(this.phoneBookService.update(update.getId(), update), "결과: 데이터 수정 성공되었습니다.");
+        }
+        updateSuccess(this.phoneBookService.update(result.getId(), result), "결과: 데이터 수정 성공되었습니다.");
+    }
+
+    private void updateSuccess(boolean phoneBookService, String x) throws Exception {
+        if (phoneBookService) {
             this.phoneBookService.saveData();
-            System.out.println("결과: 데이터 수정 성공되었습니다.");
+            System.out.println(x);
         }
     }
 

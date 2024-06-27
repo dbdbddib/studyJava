@@ -4,8 +4,6 @@ import com.studymavenspringboot.sbtest0626.make.PhoneBook;
 import com.studymavenspringboot.sbtest0626.make.PhoneBookServiceImpl;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.io.File;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -81,8 +79,8 @@ public class PhoneBookServiceTests {
         assertThat(textService.getListFromGroup(EPhoneGroup.Friends).size()).isEqualTo(2);
 
         // save file test
-        jsonService.saveData();
-        textService.saveData();
+        assertThat(jsonService.saveData()).isEqualTo(true);
+        assertThat(textService.saveData()).isEqualTo(true);
         assertThat(jsonFile.exists()).isEqualTo(true);
         assertThat(jsonFile.length()).isEqualTo(304L);
         assertThat(textFile.exists()).isEqualTo(true);
@@ -93,8 +91,8 @@ public class PhoneBookServiceTests {
         textService.getAllList().clear();
         assertThat(jsonService.size()).isEqualTo(0);
         assertThat(textService.size()).isEqualTo(0);
-        jsonService.loadData();
-        textService.loadData();
+        assertThat(jsonService.loadData()).isEqualTo(true);
+        assertThat(textService.loadData()).isEqualTo(true);
         assertThat(jsonService.size()).isEqualTo(3);
         assertThat(textService.size()).isEqualTo(3);
     }

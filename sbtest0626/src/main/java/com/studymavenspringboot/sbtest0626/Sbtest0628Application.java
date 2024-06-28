@@ -2,12 +2,13 @@ package com.studymavenspringboot.sbtest0626;
 
 import com.studymavenspringboot.sbtest0626.make.PhoneBookServiceImpl;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Sbtest0628Application {
     public static void main(String[] args) {
         if (args.length < 2) {
-            System.out.println("Error : You need program arguments (-j/-t) (filename) !");
+            System.out.println("에러: 프로그램 인자가 필요합니다. 사용법: (-j/-t) (파일명)");
             return;
         }
         ConsoleApplication application = new ConsoleApplication();
@@ -17,7 +18,7 @@ public class Sbtest0628Application {
         try {
             application.setPhoneBookService(new PhoneBookServiceImpl(args[0], args[1]));
         } catch (Exception e) {
-            throw new RuntimeException("Error : " + e.getMessage());
+            throw new RuntimeException("에러: " + e.getMessage());
         }
         while (run) {
             try {
@@ -56,6 +57,7 @@ public class Sbtest0628Application {
                         break;
                 }
             } catch (Exception ex) {
+                System.out.println("오류가 발생했습니다: " + ex.getMessage());
                 ex.printStackTrace();
             }
         }

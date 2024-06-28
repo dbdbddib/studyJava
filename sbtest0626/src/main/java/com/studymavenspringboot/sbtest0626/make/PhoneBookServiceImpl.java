@@ -18,7 +18,7 @@ public class PhoneBookServiceImpl implements IPhoneBookService<IPhoneBook> {
         } else if ( "-t".equals(arg1) ) {
             this.phoneBookRepository = new PhoneBookTextRepository(fileName);
         } else {
-            throw new Exception( "Error : You need program arguments (-j/-t) (filename) !");
+            throw new Exception( "에러: 프로그램 인자가 필요합니다. 사용법: (-j/-t) (파일명");
         }
     }
 
@@ -32,23 +32,37 @@ public class PhoneBookServiceImpl implements IPhoneBookService<IPhoneBook> {
      * @return get Maximum id number value
      */
     @Override
-    public Long getMaxId() {        // for문 바이너리 서치로 바꾸기
+    public Long getMaxId() {
         Long nMax = 0L;
-        for ( IPhoneBook obj : this.list ) {
-            if ( nMax < obj.getId() ) {
-                nMax = obj.getId();
-            }
-        }
+            int may = this.list.size();
+            IPhoneBook lastElement = this.list.get(may - 1);
+            nMax = lastElement.getId();
         return ++nMax;
     }
 
     @Override
     public IPhoneBook findById(Long id) {       // for문 바이너리 서치로 바꾸기
-        for ( IPhoneBook obj : this.list ) {
-            if ( id.equals(obj.getId()) ) {
-                return obj;
+
+        int may = (int)(this.list.size()/2);
+        List<IPhoneBook> list1 = new ArrayList<>(this.list.subList(0, may));
+        List<IPhoneBook> list2 = new ArrayList<>(this.list.subList(may + 1, this.list.size()));
+
+        if (this.list.get(may).getId() == id){
+            return list.get(may);
+        } else if (this.list.get(may).getId() < id) {
+                for ( IPhoneBook obj : list2 ) {
+                if ( id.equals(obj.getId()) ) {
+                    return obj;
+                }
+            }
+        } else {
+            for ( IPhoneBook obj : list1 ) {
+                if ( id.equals(obj.getId()) ) {
+                    return obj;
+                }
             }
         }
+
         return null;
     }
 

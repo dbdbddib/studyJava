@@ -20,7 +20,7 @@ public class PhoneBookJsonRepository implements IPhoneBookRepository<IPhoneBook>
 
     public PhoneBook getObjectFromJson(JSONObject jsonObject) throws Exception {
         if (jsonObject == null) {
-            throw new Exception("Error : Input jsonObject is null");
+            throw new Exception("입력된 JSON 객체가 null입니다.");
         }
         PhoneBook object = new PhoneBook();
         object.setId((Long) jsonObject.get("id"));
@@ -34,7 +34,7 @@ public class PhoneBookJsonRepository implements IPhoneBookRepository<IPhoneBook>
 
     public JSONObject getJsonFromObject(IPhoneBook object) throws Exception {
         if (object == null) {
-            throw new Exception("Error : Input object is null");
+            throw new Exception("입력된 객체가 null입니다.");
         }
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id", object.getId());
@@ -75,6 +75,7 @@ public class PhoneBookJsonRepository implements IPhoneBookRepository<IPhoneBook>
         JSONParser parser = new JSONParser();
         File file = new File(fileName);
         if (!file.exists()) {
+            System.out.println(fileName + " 파일이 존재하지 않습니다..");
             return false; // 파일이 없을때 실행하면 예외 없도록 처리함
         }
         FileReader reader = new FileReader(file, Charset.defaultCharset());
@@ -91,6 +92,4 @@ public class PhoneBookJsonRepository implements IPhoneBookRepository<IPhoneBook>
         }
         return true;
     }
-
-
 }

@@ -15,15 +15,16 @@ public class PhoneBookServiceImpl implements IPhoneBookService<IPhoneBook> {
 
 
     @Override
-    public IPhoneBook findById(Long id) {       // for문 바이너리 서치로 바꾸기
+    public IPhoneBook findById(Long id) {
         Optional<PhoneBookEntity> find = this.phoneBookJpaRepository.findById(id);
         return find.orElse(null);
     }
 
     @Override
-    public List<IPhoneBook> getAllList() {  // list 스트림
+    public List<IPhoneBook> getAllList() {
         List<IPhoneBook> list = new ArrayList<>();
-        for (PhoneBookEntity entity : this.phoneBookJpaRepository.findAll()) {   // 데이터 형변환에 관한 for문
+        // 데이터 형변환에 관한 for문
+        for (PhoneBookEntity entity : this.phoneBookJpaRepository.findAll()) {
             list.add((IPhoneBook) entity);
         }
         return list;
@@ -64,6 +65,7 @@ public class PhoneBookServiceImpl implements IPhoneBookService<IPhoneBook> {
     public boolean remove(Long id) {
         IPhoneBook find = this.findById(id);
         if (find != null) {
+            this.phoneBookJpaRepository.deleteById(id);
             return true;
         }
         return false;
@@ -72,6 +74,9 @@ public class PhoneBookServiceImpl implements IPhoneBookService<IPhoneBook> {
     @Override
     public IPhoneBook update(Long id, IPhoneBook phoneBook) {
         IPhoneBook find = this.findById(id);
+        if (find != null) {
+            return null;
+        }
         return null;
     }
 

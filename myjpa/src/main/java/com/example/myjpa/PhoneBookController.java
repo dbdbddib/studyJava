@@ -20,14 +20,16 @@ public class PhoneBookController {
     private IPhoneBookService<IPhoneBook> phoneBookService;
 
     @PostMapping
-    public ResponseEntity<IPhoneBook> insertPB(PhoneBookDto dto) {
+    public ResponseEntity<IPhoneBook> insertPB(@RequestBody PhoneBookDto dto) {
         try {
             if(dto == null){
                 return ResponseEntity.badRequest().build();
             }
             IPhoneBook result = this.phoneBookService.insert(dto);
+            if (result==null) {
+                return ResponseEntity.badRequest().build();
+            }
             return ResponseEntity.ok(result);
-
         } catch (Exception ex) {
             logger.error(ex.toString());
             return ResponseEntity.badRequest().build();

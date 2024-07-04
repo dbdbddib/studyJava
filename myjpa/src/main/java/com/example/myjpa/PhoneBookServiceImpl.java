@@ -12,6 +12,8 @@ public class PhoneBookServiceImpl implements IPhoneBookService<IPhoneBook> {
     @Autowired
     private PhoneBookJpaRepository phoneBookJpaRepository;
 
+
+
     @Override
     public IPhoneBook findById(Long id) {       // for문 바이너리 서치로 바꾸기
         Optional<PhoneBookEntity> find = this.phoneBookJpaRepository.findById(id);
@@ -38,10 +40,24 @@ public class PhoneBookServiceImpl implements IPhoneBookService<IPhoneBook> {
 
     @Override
     public IPhoneBook insert(IPhoneBook phoneBook) throws Exception {
+        if (!this.isValidInsert(phoneBook)) {
+            return null;
+        }
         PhoneBookEntity entity = new PhoneBookEntity();
         entity.copyFields(phoneBook);
         IPhoneBook result = this.phoneBookJpaRepository.saveAndFlush(entity);
         return result;
+    }
+
+    private boolean isValidInsert(IPhoneBook dto) {
+        if (dto == null) {
+            return false;
+        } else if (dto.getName() == null || dto.getName().isEmpty()) {
+            return false;
+        } else if (dto.getCategory() == null || dto.getCategory().isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
     @Override

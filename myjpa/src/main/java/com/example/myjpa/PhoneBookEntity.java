@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "phonebook_tbl")  // 테이블 이름 설정 안 할시 클래스 이름으로
+@Table(name = "phoneBook_tbl")
 public class PhoneBookEntity implements IPhoneBook {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,20 +21,17 @@ public class PhoneBookEntity implements IPhoneBook {
     private String name;
 
     @NotNull
-    @Column(length = 10)
-    private String category;
+    private ECategory category;
 
     @NotNull
     @Column(length = 20)
     private String phoneNumber;
-    @NotNull
+
     @Column(length = 200)
     private String email;
 
     @Override
     public String toString() {
-        return String.format("ID:%6d, 이름:%s, 분류:%s, 번호:%s, 이메일:%s",
-                this.id, this.name, this.category, this.phoneNumber, this.email);
+        return String.format("ID:%6d, 이름:%s, 분류:%s, 번호:%s, 이메일:%s}", this.id, this.name, this.category, this.phoneNumber, this.email);
     }
 }
-

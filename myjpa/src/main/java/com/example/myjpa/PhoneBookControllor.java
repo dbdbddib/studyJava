@@ -96,7 +96,7 @@ public class PhoneBookControllor {
         }
     }
 
-    @GetMapping("/name/{name}")
+    @GetMapping("/name:{name}")
     public ResponseEntity<List<IPhoneBook>> findAllByName(@PathVariable String name) {
         try {
             if (name == null || name.isEmpty()) {
@@ -113,7 +113,7 @@ public class PhoneBookControllor {
         }
     }
 
-    @GetMapping("/group/{category}")
+    @GetMapping("/group:{category}")
     public ResponseEntity<List<IPhoneBook>> findAllByCategory(@PathVariable Integer category) {
         try {
             if (category == null) {
@@ -130,7 +130,7 @@ public class PhoneBookControllor {
         }
     }
 
-    @GetMapping("/phone/{phoneNumber}")
+    @GetMapping("/phone:{phoneNumber}")
     public ResponseEntity<List<IPhoneBook>> findAllByPhoneNumber(@PathVariable String phoneNumber) {
         try {
             if (phoneNumber == null || phoneNumber.isEmpty()) {
@@ -147,7 +147,7 @@ public class PhoneBookControllor {
         }
     }
 
-    @GetMapping("/email/{email}")
+    @GetMapping("/email:{email}")
     public ResponseEntity<List<IPhoneBook>> findAllByEmail(@PathVariable String email) {
         try {
             if (email == null || email.isEmpty()) {

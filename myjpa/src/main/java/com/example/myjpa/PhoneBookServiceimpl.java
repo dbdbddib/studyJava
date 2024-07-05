@@ -88,9 +88,10 @@ public class PhoneBookServiceimpl implements IPhoneBookService<IPhoneBook> {
             return new ArrayList<>();
         }
         List<PhoneBookEntity> list = this.phoneBookJpaRepository.findAllByNameContains(findName);
-        List<IPhoneBook> result = list.stream()
-                .map(item -> (IPhoneBook) item)
-                .toList();
+        List<IPhoneBook> result = new ArrayList<>();
+        for(PhoneBookEntity item : list){
+            result.add((IPhoneBook) item);
+        }
         return result;
     }
 
@@ -129,5 +130,4 @@ public class PhoneBookServiceimpl implements IPhoneBookService<IPhoneBook> {
                 .collect(Collectors.toUnmodifiableList());
         return result;
     }
-
 }

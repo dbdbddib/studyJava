@@ -1,4 +1,6 @@
-package com.example.myjpa;
+//Entity 와 JpaRepository 만 있어도 db 연결
+
+package com.example.myjpa.phonebook;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -9,11 +11,11 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity //엔티티 클래스는 데이터베이스 테이블의 구조를 반영
 @Table(name = "phoneBook_tbl")
 public class PhoneBookEntity implements IPhoneBook {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)     // id 필드의 값을 db에 자동으로 1씩 증가
     private Long id;
 
     @NotNull

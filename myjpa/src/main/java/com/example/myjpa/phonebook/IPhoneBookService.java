@@ -1,4 +1,4 @@
-package com.example.myjpa;
+package com.example.myjpa.phonebook;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public interface IPhoneBookService<T> {
 
     List<T> getListFromName(String findName);
 
-    List<T> getListFromCategory(ECategory findCategory);
+    List<T> getListFromCategory(ECategory category);
 
     List<T> getListFromPhoneNumber(String findPhone);
 

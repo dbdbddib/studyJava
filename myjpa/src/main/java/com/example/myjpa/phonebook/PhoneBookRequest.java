@@ -1,4 +1,4 @@
-package com.example.myjpa;
+package com.example.myjpa.phonebook;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotBlank;

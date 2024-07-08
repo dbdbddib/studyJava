@@ -1,6 +1,4 @@
-package com.example.myjpa;
-
-import java.util.Objects;
+package com.example.myjpa.phonebook;
 
 public enum ECategory {
     Friends(0),
@@ -19,10 +17,8 @@ public enum ECategory {
         return this.value;
     }
 
-    private static final ECategory[] ECategoryArray = ECategory.values();
-
     public static ECategory integerOf(Integer val) {
-        for (ECategory item : ECategoryArray) {
+        for (ECategory item : ECategory.values()) {
             if (val.equals(item.getValue())) {
                 return item;
             }

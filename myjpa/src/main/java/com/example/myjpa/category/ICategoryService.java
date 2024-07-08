@@ -9,4 +9,5 @@ public interface ICategoryService {
     boolean remove(Long id) throws Exception;
     ICategory update(Long id, ICategory category) throws Exception;
     List<ICategory> findAllByNameContains(String name);
+    List<ICategory> getListFromName(String findName);
 }

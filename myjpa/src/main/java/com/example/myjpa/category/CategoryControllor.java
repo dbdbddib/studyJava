@@ -79,4 +79,38 @@ public class CategoryControllor {
         }
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ICategory> findById(@PathVariable Long id) {
+        try {
+            if (id == null || id <= 0) {
+                return ResponseEntity.badRequest().build();
+            }
+            ICategory result = this.categoryService.findById(id);
+            if (result == null) {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok(result);
+        } catch (Exception ex) {
+            logger.error(ex.toString());
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/name:{name}")
+    public ResponseEntity<List<ICategory>> findAllByName(@PathVariable String name) {
+        try {
+            if (name == null || name.isEmpty()) {
+                return ResponseEntity.badRequest().build();
+            }
+            List<ICategory> result = this.categoryService.getListFromName(name);
+            if (result == null || result.size() <= 0) {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok(result);
+        } catch (Exception ex) {
+            logger.error(ex.toString());
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
 }

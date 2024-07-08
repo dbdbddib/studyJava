@@ -23,6 +23,9 @@ public class CategoryServiceImpl implements ICategoryService{
 
     @Override
     public ICategory findById(Long id) {
+        if( id == null || id <= 0){
+            return null;
+        }
         Optional<CategoryEntity> find = this.categoryJpaRepository.findById(id);
         return find.orElse(null);   // find의 값이 없으면 null로 리턴..
     }
@@ -35,18 +38,16 @@ public class CategoryServiceImpl implements ICategoryService{
 
     @Override
     public List<ICategory> getAllList() {
-        List<ICategory> list = this.getICategoryList(this.categoryJpaRepository.findAll());
-        return list;
+        return this.getICategoryList(this.categoryJpaRepository.findAll());
     }
 
     private List<ICategory> getICategoryList(List<CategoryEntity> list) {
         if(list == null || list.size() <= 0){
             return new ArrayList<>();
         }
-        List<ICategory> result = list.stream()
+        return list.stream()
                 .map(entity -> (ICategory)entity)
                 .toList();
-        return result;
     }
 
     @Override
@@ -56,8 +57,7 @@ public class CategoryServiceImpl implements ICategoryService{
         }
         CategoryEntity entity = new CategoryEntity();
         entity.copyFields(category);
-        ICategory result = this.categoryJpaRepository.saveAndFlush(entity);
-        return result;
+        return this.categoryJpaRepository.saveAndFlush(entity);
     }
 
     @Override
@@ -76,19 +76,26 @@ public class CategoryServiceImpl implements ICategoryService{
         if (find == null) {
             return null;
         }
-        CategoryEntity entity = CategoryEntity.builder()
-                .id(id).name(find.getName()).build();
-        entity.copyFields(category);
-        return this.categoryJpaRepository.saveAndFlush(entity);
+        find.copyFields(category);
+        return this.categoryJpaRepository.saveAndFlush((CategoryEntity) find);
     }
-
 
     @Override
     public List<ICategory> findAllByNameContains(String name) {
-        if (name == null || name.isEmpty()) {
+        if(name == null || name.isEmpty()){
             return new ArrayList<>();
         }
-        List<CategoryEntity> list = this.categoryJpaRepository.findAllByNameContains(name);
+        return this.getICategoryList(
+                this.categoryJpaRepository.findAllByNameContains(name)
+        );
+    }
+
+    @Override
+    public List<ICategory> getListFromName(String findName) {
+        if (findName == null || findName.isEmpty()) {
+            return new ArrayList<>();
+        }
+        List<CategoryEntity> list = this.categoryJpaRepository.findAllByNameContains(findName);
         List<ICategory> result = new ArrayList<>();
         for(CategoryEntity item : list){
             result.add((ICategory) item);

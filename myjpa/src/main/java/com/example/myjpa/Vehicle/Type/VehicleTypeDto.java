@@ -1,4 +1,4 @@
-package com.example.myjpa.category;
+package com.example.myjpa.Vehicle.Type;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryDto implements ICategory{
+public class VehicleTypeDto implements IVehicleType{
     private Long id;
     private String name;
 
@@ -15,5 +15,4 @@ public class CategoryDto implements ICategory{
     public String toString() {
         return String.format("ID:%6d, 이름:%s}", this.id, this.name);
     }
-
 }

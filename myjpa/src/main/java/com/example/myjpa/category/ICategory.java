@@ -12,6 +12,8 @@ public interface ICategory extends Serializable {
     String getName();
     void setName(String name);
 
+
+    // 필드값 복사하는 메소드
     default void copyFields(ICategory from) {
         if (from == null) {
             return;

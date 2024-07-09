@@ -56,6 +56,9 @@ public class CategoryServiceImpl implements ICategoryService{
             return null;
         }
         CategoryEntity entity = new CategoryEntity();
+        // 매개변수에서 받은 클래스의 필드값을 엔티티 클래스의 필드값으로 복붙
+        // 엔티티로 변경하는 이유는 데이터베이스 테이블의 구조에 접근하기 위함
+        // 실직적으로 데이터베이스에 접근할 수 있는 클래스는 엔티티 뿐?
         entity.copyFields(category);
         return this.categoryJpaRepository.saveAndFlush(entity);
     }

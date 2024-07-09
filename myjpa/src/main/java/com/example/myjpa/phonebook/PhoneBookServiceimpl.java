@@ -1,5 +1,7 @@
 package com.example.myjpa.phonebook;
 
+import com.example.myjpa.category.CategoryEntity;
+import com.example.myjpa.category.ICategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,15 +55,6 @@ public class PhoneBookServiceimpl implements IPhoneBookService<IPhoneBook> {
     }
 
     @Override
-    public IPhoneBook insert(String name, ECategory category, String phoneNumber, String email) throws Exception {
-        PhoneBookDto phoneBook = PhoneBookDto.builder()
-                .id(0L)
-                .name(name).category(category)
-                .phoneNumber(phoneNumber).email(email).build();
-        return this.insert(phoneBook);
-    }
-
-    @Override
     public boolean remove(Long id) {
         IPhoneBook find = this.findById(id);
         if (find == null) {
@@ -77,11 +70,13 @@ public class PhoneBookServiceimpl implements IPhoneBookService<IPhoneBook> {
         if (find == null) {
             return null;
         }
-        PhoneBookEntity entity = PhoneBookEntity.builder()
-                .id(id).name(find.getName()).category(find.getCategory())
-                .phoneNumber(find.getPhoneNumber()).build();
-        entity.copyFields(phoneBook);
-        return this.phoneBookJpaRepository.saveAndFlush(entity);
+//        PhoneBookEntity entity = PhoneBookEntity.builder()
+//                .id(id).name(find.getName()).category((CategoryEntity) find.getCategory())
+//                .phoneNumber(find.getPhoneNumber()).build();
+//        entity.copyFields(phoneBook);
+        find.copyFields(phoneBook);
+        PhoneBookEntity result = this.phoneBookJpaRepository.saveAndFlush((PhoneBookEntity) find);
+        return result;
     }
 
     @Override
@@ -98,11 +93,11 @@ public class PhoneBookServiceimpl implements IPhoneBookService<IPhoneBook> {
     }
 
     @Override
-    public List<IPhoneBook> getListFromCategory(ECategory category) {
+    public List<IPhoneBook> getListFromCategory(ICategory category) {
         if (category == null) {
             return new ArrayList<>();
         }
-        List<PhoneBookEntity> list = this.phoneBookJpaRepository.findAllByCategory(category);
+        List<PhoneBookEntity> list = this.phoneBookJpaRepository.findAllByCategory((CategoryEntity) category);
         List<IPhoneBook> result = list.stream()
                 .map(item -> (IPhoneBook) item)
                 .toList();

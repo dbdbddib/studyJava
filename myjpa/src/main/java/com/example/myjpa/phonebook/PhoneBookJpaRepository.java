@@ -1,5 +1,7 @@
 package com.example.myjpa.phonebook;
 
+import com.example.myjpa.category.CategoryEntity;
+import com.example.myjpa.category.ICategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -8,11 +10,12 @@ import java.util.List;
 // <PhoneBookEntity, Long>
 // PhoneBookEntity: JPA 리포지토리가 관리할 엔티티 클래스입니다.
 // Long: 기본키의 데이터타입 (PhoneBookEntity 클래스의 id가 기본키이며 id의 타입은 Long)
-//findAllByNameContains(String name) name(매개변수) Entity 클래스에서 찾는다.
+// findAllByNameContains(String name) name(매개변수) Entity 클래스에서 찾는다.
+//JPA 쪽에는 인터페이스 형을 쓰면 안됨
 
 public interface PhoneBookJpaRepository extends JpaRepository<PhoneBookEntity, Long> {
     List<PhoneBookEntity> findAllByNameContains(String name);
-    List<PhoneBookEntity> findAllByCategory(ECategory category);
+    List<PhoneBookEntity> findAllByCategory(CategoryEntity category);
     List<PhoneBookEntity> findAllByPhoneNumberContains(String phoneNumber);
     List<PhoneBookEntity> findAllByEmailContains(String email);
 }

@@ -1,5 +1,7 @@
 package com.example.myjpa.phonebook;
 
+import com.example.myjpa.category.CategoryDto;
+import com.example.myjpa.category.CategoryEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +21,9 @@ public class PhoneBookControllor {
     @Autowired
     private IPhoneBookService<IPhoneBook> phoneBookService;
 
+
+
+    // 매개변수에 인터페이스형을 선언하면 안되는 이유는 생성자, 객체 생성을 못 하기 때문에 JSON 형태를 못 받음
     @PostMapping
     public ResponseEntity<IPhoneBook> insertPB(@RequestBody PhoneBookRequest dto) {
         try {
@@ -119,7 +124,8 @@ public class PhoneBookControllor {
             if (category == null) {
                 return ResponseEntity.badRequest().build();
             }
-            List<IPhoneBook> result = this.phoneBookService.getListFromCategory(ECategory.integerOf(category));
+            CategoryEntity categoryEntity = CategoryEntity.builder().id(Long.parseLong(category.toString())).build();
+            List<IPhoneBook> result = this.phoneBookService.getListFromCategory(categoryEntity);
             if (result == null || result.size() <= 0) {
                 return ResponseEntity.notFound().build();
             }

@@ -2,6 +2,8 @@
 
 package com.example.myjpa.phonebook;
 
+import com.example.myjpa.category.CategoryEntity;
+import com.example.myjpa.category.ICategory;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -23,7 +25,9 @@ public class PhoneBookEntity implements IPhoneBook {
     private String name;
 
     @NotNull
-    private ECategory category;
+    @ManyToOne
+    @JoinColumn(name="category_id")
+    private CategoryEntity category;
 
     @NotNull
     @Column(length = 20)
@@ -34,6 +38,18 @@ public class PhoneBookEntity implements IPhoneBook {
 
     @Override
     public String toString() {
-        return String.format("ID:%6d, 이름:%s, 분류:%s, 번호:%s, 이메일:%s}", this.id, this.name, this.category, this.phoneNumber, this.email);
+        return String.format("ID:%6d, 이름:%s, 분류:%s, 번호:%s, 이메일:%s}"
+                , this.id, this.name, this.category, this.phoneNumber, this.email);
+    }
+
+    @Override
+    public void setCategory(ICategory category) {
+        if(category == null){
+            return;
+        }
+        CategoryEntity entity = new CategoryEntity();
+        entity.copyFields(category);
+        this.category = entity;
+
     }
 }

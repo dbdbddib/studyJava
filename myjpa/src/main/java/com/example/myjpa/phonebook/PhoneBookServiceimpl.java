@@ -24,6 +24,8 @@ public class PhoneBookServiceimpl implements IPhoneBookService<IPhoneBook> {
         return true;
     }
 
+    // 매개변수 phoneBook에는 IPhoneBook 상속받은 어떤 클래스가 올지 모름
+    // 결국 PhoneBookEntity 클래스로 돌아옴 돌고 돌려고 인터페이스를 사용..
     @Override
     public IPhoneBook insert(IPhoneBook phoneBook) throws Exception {
         if (!this.isValidInsert(phoneBook)) {

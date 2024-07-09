@@ -112,5 +112,4 @@ public class CategoryControllor {
             return ResponseEntity.badRequest().build();
         }
     }
-
 }

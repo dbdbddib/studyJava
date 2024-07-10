@@ -2,9 +2,7 @@ package com.example.myjpa.phonebook;
 
 import com.example.myjpa.category.ICategory;
 
-import java.io.Serializable;
-
-public interface IPhoneBook extends Serializable {
+public interface IPhoneBook {
     Long getId();
     void setId(Long id);
 

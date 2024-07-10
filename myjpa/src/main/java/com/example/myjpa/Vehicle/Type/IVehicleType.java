@@ -1,8 +1,6 @@
 package com.example.myjpa.Vehicle.Type;
 
-import java.io.Serializable;
-
-public interface IVehicleType  extends Serializable {
+public interface IVehicleType {
     Long getId();
     void setId(Long id);
 

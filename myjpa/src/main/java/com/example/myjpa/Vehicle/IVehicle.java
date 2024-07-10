@@ -47,7 +47,7 @@ public interface IVehicle {
         if (from.getModel() != null && !from.getModel().isEmpty()) {
             this.setModel(from.getModel());
         }
-        if (from.getMakeYear() < 0) {
+        if (from.getMakeYear() >= 0) {
             this.setMakeYear(from.getMakeYear());
         }
         if (from.getType() != null) {
@@ -56,7 +56,7 @@ public interface IVehicle {
         if (from.getColor() != null && !from.getColor().isEmpty()) {
             this.setColor(from.getColor());
         }
-        if (from.getTotalKm() < 0) {
+        if (from.getTotalKm() >= 0) {
             this.setTotalKm(from.getTotalKm());
         }
         if (from.getFactoryNumber() != null && !from.getFactoryNumber().isEmpty()) {

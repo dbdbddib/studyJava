@@ -1,6 +1,7 @@
 package com.example.myjpa.Vehicle;
 
 import com.example.myjpa.Vehicle.Type.IVehicleType;
+import com.example.myjpa.Vehicle.Type.VehicleTypeEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface VehicleJpaRepository extends JpaRepository<VehicleEntity, Long>
     Optional<VehicleEntity> findByFactoryNumber(String factoryNumber);
     Optional<VehicleEntity> findByRegistNumber(String registNumbery);
     List<VehicleEntity> findAllByMakeYear(int makeYear);
-    List<VehicleEntity> findAllByType(IVehicleType type);
+    List<VehicleEntity> findAllByType(VehicleTypeEntity type);
     List<VehicleEntity> findAllByTotalKm(int totalKm);
     List<VehicleEntity> findAllByStatus(VehicleStatus status);
 }

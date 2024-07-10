@@ -2,6 +2,7 @@ package com.example.myjpa.Vehicle;
 
 
 import com.example.myjpa.Vehicle.Type.IVehicleType;
+import com.example.myjpa.Vehicle.Type.VehicleTypeEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -27,29 +28,38 @@ public class VehicleEntity  implements IVehicle {
     private String model;
 
     @NotNull
-    @Column(length = 20)
     private int makeYear;
 
-    @Column(length = 20)
-    private IVehicleType type;
+    @ManyToOne  // 하나의 차량 유형은 여러 차량에 적용될 수 있기 때문
+    @JoinColumn(name="vehicleType_tbl")
+    private VehicleTypeEntity type;
 
     @NotNull
     @Column(length = 20)
     private String color;
 
     @NotNull
-    @Column(length = 7)
     private int totalKm;
 
     @NotNull
-    @Column(length = 20)
+    @Column(length = 20, unique = true)
     private String factoryNumber;
 
     @NotNull
-    @Column(length = 20)
+    @Column(length = 20, unique = true)
     private String registNumber;
 
     @NotNull
     @Column(length = 20)
     private VehicleStatus status;
+
+    @Override
+    public void setType(IVehicleType vehicleType) {
+        if(vehicleType == null){
+            return;
+        }
+        VehicleTypeEntity entity = new VehicleTypeEntity();
+        entity.copyFields(vehicleType);
+        this.type = entity;
+    }
 }

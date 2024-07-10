@@ -1,5 +1,6 @@
 package com.example.myjpa.phonebook;
 
+import com.example.myjpa.category.CategoryDto;
 import com.example.myjpa.category.CategoryEntity;
 import com.example.myjpa.category.ICategory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,7 +26,7 @@ public class PhoneBookRequest implements IPhoneBook {
     private String name;
 
     @NotBlank
-    private CategoryEntity category;
+    private CategoryDto category;
 
     @NotBlank
     @Size(min = 0, max = 20)
@@ -40,7 +41,7 @@ public class PhoneBookRequest implements IPhoneBook {
         if (category == null) {
             return;
         }
-        CategoryEntity entity = new CategoryEntity();
+        CategoryDto entity = new CategoryDto();
         entity.copyFields(category);
         this.category = entity;
     }

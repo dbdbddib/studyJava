@@ -21,7 +21,7 @@ public interface IVehicle {
     String getColor();
     void setColor(String color);
 
-    int getTotalKM();
+    int getTotalKm();
     void setTotalKm(int totalKm);
 
     String getFactoryNumber();
@@ -56,8 +56,8 @@ public interface IVehicle {
         if (from.getColor() != null && !from.getColor().isEmpty()) {
             this.setColor(from.getColor());
         }
-        if (from.getTotalKM() < 0) {
-            this.setTotalKm(from.getTotalKM());
+        if (from.getTotalKm() < 0) {
+            this.setTotalKm(from.getTotalKm());
         }
         if (from.getFactoryNumber() != null && !from.getFactoryNumber().isEmpty()) {
             this.setFactoryNumber(from.getFactoryNumber());

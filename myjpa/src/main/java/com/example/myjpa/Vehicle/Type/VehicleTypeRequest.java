@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class VehicleTypeRequest implements IVehicleType{
+public class VehicleTypeRequest implements IVehicleType {
     @JsonIgnore
     private Long id;
 

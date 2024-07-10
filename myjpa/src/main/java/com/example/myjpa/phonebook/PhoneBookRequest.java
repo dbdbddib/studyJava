@@ -14,11 +14,13 @@ import lombok.Setter;
 @Setter
 @Builder
 
+// Conrtollor 에서 객체 생성하여 JSON 교류하는?
+
 public class PhoneBookRequest implements IPhoneBook {
     @JsonIgnore
     private Long id;
 
-    @NotBlank
+    @NotBlank       // 공백과 null이 아닌지 검사
     @Size(min = 2, max = 12)
     private String name;
 

@@ -32,9 +32,10 @@ public class VehicleServiceImpl implements IVehicleService{
 
     @Override
     public List<IVehicle> getAllList() {
-        return this.getICategoryList(this.vehicleJpaRepository.findAll());
+        return this.getIVehicleList(this.vehicleJpaRepository.findAll());
     }
-    private List<IVehicle> getICategoryList(List<VehicleEntity> list) {
+
+    private List<IVehicle> getIVehicleList(List<VehicleEntity> list) {
         if(list == null || list.size() <= 0){
             return new ArrayList<>();
         }
@@ -75,7 +76,10 @@ public class VehicleServiceImpl implements IVehicleService{
 
     @Override
     public List<VehicleEntity> findAllByCompany(String company) {
-        return List.of();
+        if(company == null || company.isEmpty()) {
+            return  new ArrayList<>();
+        }
+        return null;
     }
 
     @Override

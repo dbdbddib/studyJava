@@ -1,6 +1,5 @@
 package com.example.myjpa.Vehicle;
 
-
 import com.example.myjpa.Vehicle.Type.IVehicleType;
 import com.example.myjpa.Vehicle.Type.VehicleTypeDto;
 import com.example.myjpa.Vehicle.Type.VehicleTypeEntity;

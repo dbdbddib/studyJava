@@ -15,6 +15,9 @@ public class PhoneBookServiceimpl implements IPhoneBookService<IPhoneBook> {
     @Autowired
     private PhoneBookJpaRepository phoneBookJpaRepository;
 
+    // 서비스는 Jpa를 호출한다  그리고 처음 호출자인 커트룰러에서 Jpa.saveAndFlush를 하여 값을 저장한다.
+
+
     private boolean isValidInsert(IPhoneBook dto) {
         if (dto == null) {
             return false;

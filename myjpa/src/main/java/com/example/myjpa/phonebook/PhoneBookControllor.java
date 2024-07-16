@@ -21,6 +21,9 @@ public class PhoneBookControllor {
     @Autowired
     private IPhoneBookService<IPhoneBook> phoneBookService;
 
+    // 컨트룰러에 요청이 들어오면 Service를 호출
+
+
 
 
     // 매개변수에 인터페이스형을 선언하면 안되는 이유는 생성자, 객체 생성을 못 하기 때문에 JSON 형태를 못 받음

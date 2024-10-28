@@ -13,15 +13,20 @@ public class ClientApp {
         // 서버와 연결된 클라이언트 소켓으로 읽거나 쓴다.
         // 읽을때는 동기상태 (블로킹)
 
+        Socket clientSocket = null;
+        BufferedWriter socketWriter = null;
+        BufferedReader socketReader = null;
+        BufferedReader keyboardReader = null;
+
         try {
-            Socket clientSocket = init();
-            BufferedWriter socketWriter = new BufferedWriter(
+            clientSocket = init();
+            socketWriter = new BufferedWriter(
                     new OutputStreamWriter(clientSocket.getOutputStream())
             );
-            BufferedReader socketReader = new BufferedReader(
+            socketReader = new BufferedReader(
                     new InputStreamReader(clientSocket.getInputStream())
             );
-            BufferedReader keyboardReader = new BufferedReader(
+            keyboardReader = new BufferedReader(
                     new InputStreamReader(System.in)
             );
             socketWriter.write(String.format("클라이언트[%s] 에서 문자열 전송 함", serverIp));
@@ -45,10 +50,6 @@ public class ClientApp {
                 }
             }
 
-            keyboardReader.close();
-            socketReader.close();
-            socketWriter.close();
-            clientSocket.close();
         } catch (IOException ioE) {
             System.out.println("IOException");
             System.out.println(ioE.toString());
@@ -56,6 +57,22 @@ public class ClientApp {
             System.out.println("Exception");
             System.out.println(ex.toString());
         } finally {
+            try {
+                if (keyboardReader != null) {
+                    keyboardReader.close();
+                }
+                if (socketReader != null) {
+                    socketReader.close();
+                }
+                if (socketWriter != null) {
+                    socketWriter.close();
+                }
+                if (clientSocket != null) {
+                    clientSocket.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             System.out.println("클라이언트 프로그램 종료");
         }
     }

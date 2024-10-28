@@ -17,15 +17,21 @@ public class ServerApp {
         // 블로킹 상태) 동기상태
         // 클라이언트 로부터 접속이 되면 클라이언트와 연결할 소켓을 리턴하다. (acceptSocket)
         // 클라이언트와 연결된 소켓으로 읽거나 쓴다. 읽을때는 동기상태 (블로킹)
+
+        Socket acceptSocket = null;
+        BufferedWriter socketWriter = null;
+        BufferedReader socketReader = null;
+        BufferedReader keyboardReader = null;
+
         try {
-            Socket acceptSocket = init();
-            BufferedWriter socketWriter = new BufferedWriter(
+            acceptSocket = init();
+            socketWriter = new BufferedWriter(
                     new OutputStreamWriter(acceptSocket.getOutputStream())
             );
-            BufferedReader socketReader = new BufferedReader(
+            socketReader = new BufferedReader(
                     new InputStreamReader(acceptSocket.getInputStream())
             );
-            BufferedReader keyboardReader = new BufferedReader(
+            keyboardReader = new BufferedReader(
                     new InputStreamReader(System.in)
             );
             while(true) {
@@ -45,11 +51,6 @@ public class ServerApp {
                 }
             }
 
-            keyboardReader.close();
-            socketReader.close();
-            socketWriter.close();
-            acceptSocket.close();
-            serverSocket.close();
         } catch (IOException ioE) {
             System.out.println("IOException");
             System.out.println(ioE.toString());
@@ -57,6 +58,25 @@ public class ServerApp {
             System.out.println("Exception");
             System.out.println(ex.toString());
         } finally {
+            try {
+                if (keyboardReader != null) {
+                    keyboardReader.close();
+                }
+                if (socketReader != null) {
+                    socketReader.close();
+                }
+                if (socketWriter != null) {
+                    socketWriter.close();
+                }
+                if (acceptSocket != null) {
+                    acceptSocket.close();
+                }
+                if (serverSocket != null) {
+                    serverSocket.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             System.out.println("서버 프로그램 종료");
         }
     }

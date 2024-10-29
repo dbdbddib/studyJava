@@ -53,7 +53,7 @@ public class ServerApp {
 
             while(true) {
                 System.out.print("서버에서 문자열 입력 : ");
-                String keyboardMsg = this.keyboardReader.readLine(); // 블로킹 상태
+                String keyboardMsg = this.keyboardReader.readLine(); // 블로킹 상 태
                 this.socketWriter.write(keyboardMsg);
                 this.socketWriter.newLine();
                 this.socketWriter.flush();

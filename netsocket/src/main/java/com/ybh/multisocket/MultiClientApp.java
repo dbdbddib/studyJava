@@ -1,14 +1,14 @@
-package com.ybh.simplesocket;
+package com.ybh.multisocket;
 
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class ClientApp {
-    private final static int port = 33333;
-    private final static String serverIp = "192.168.0.32";
-//    private final static String serverIp = "192.168.0.10";
+public class MultiClientApp {
+    private final static int port = 33334;
+//    private final static String serverIp = "127.0.0.1";
+    private final static String serverIp = "192.168.0.10";
 
     private Socket clientSocket = null;
     private BufferedWriter socketWriter = null;
@@ -21,7 +21,7 @@ public class ClientApp {
         // 서버와 연결된 클라이언트 소켓으로 읽거나 쓴다.
         // 읽을때는 동기상태 (블로킹)
 
-        ClientApp ca = new ClientApp();
+        MultiClientApp ca = new MultiClientApp();
         ca.doNetworking();
     }
 
@@ -121,7 +121,7 @@ public class ClientApp {
         public void run() {
             while(true) {
                 try {
-                    String readMsg = socketReader.readLine();
+                    String readMsg = socketReader.readLine(); // 블로킹 상태
                     System.out.printf("서버 에서 받은 문자열 : %s%n", readMsg);
                     if ("exit".equalsIgnoreCase(readMsg)) {
                         System.exit(-1);

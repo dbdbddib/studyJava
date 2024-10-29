@@ -1,11 +1,14 @@
 package com.ybh.simplesocket;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class ClientApp {
     private final static int port = 33333;
     private final static String serverIp = "192.168.0.19";
+//    private final static String serverIp = "192.168.0.10";
 
     private Socket clientSocket = null;
     private BufferedWriter socketWriter = null;
@@ -35,9 +38,27 @@ public class ClientApp {
         keyboardReader = new BufferedReader(
                 new InputStreamReader(System.in)
         );
-        socketWriter.write(String.format("클라이언트[%s] 에서 문자열 전송 함", serverIp));
+        socketWriter.write(String.format("클라이언트[%s] 에서 첫 문자열 전송 함", getMyIp()));
         socketWriter.newLine();
         socketWriter.flush();
+    }
+    
+    private String getMyIp() {
+        InetAddress local = null;
+        try {
+            local = InetAddress.getLocalHost();
+        }
+        catch ( UnknownHostException e ) {
+            e.printStackTrace();
+        }
+        if( local == null ) {
+            return "0.0.0.0";
+        }
+        else {
+            String ip = local.getHostAddress();
+            return ip;
+        }
+
     }
 
     public void doNetworking() {

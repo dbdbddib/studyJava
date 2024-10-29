@@ -1,6 +1,7 @@
 package com.ybh.multisocket;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class MultiServerApp {
 //    public BufferedReader socketReader = null;
 
     class MultiClientSocket {
+        public InetAddress ipAddr = null;
         public Socket acceptSocket = null;
         public BufferedWriter socketWriter = null;
         public BufferedReader socketReader = null;
@@ -38,7 +40,7 @@ public class MultiServerApp {
             this.socketReader = new BufferedReader(
                     new InputStreamReader(this.acceptSocket.getInputStream())
             );
-            System.out.printf("클라이언트[%s] 연결 됨%n", this.acceptSocket.getInetAddress());
+            this.ipAddr = this.acceptSocket.getInetAddress();
         }
 
         /**
@@ -93,12 +95,14 @@ public class MultiServerApp {
             this.init();
 
             AcceptClientSocketThread acst = new AcceptClientSocketThread();
-            acst.run();
+            acst.start();
 
             while(true) {
-                System.out.print("서버에서 문자열 입력 : ");
                 String keyboardMsg = this.keyboardReader.readLine(); // 블로킹 상태
-                this.writeClientList(keyboardMsg);
+                if (keyboardMsg.isEmpty()) {
+                    continue;
+                }
+                this.writeClientList(keyboardMsg, null);
                 if( "exit".equalsIgnoreCase(keyboardMsg) ) {
                     break;
                 }
@@ -116,9 +120,19 @@ public class MultiServerApp {
         }
     }
 
-    public void writeClientList(String message) throws IOException {
+    public void writeClientList(String message, MultiClientSocket mcs) throws IOException {
+        String msg = "";
+        if (mcs == null) {
+            msg = String.format("Server : %s", message);
+        } else {
+            msg = String.format("%s : %s", mcs.ipAddr, message);
+        }
         for (MultiClientSocket socket : this.multiClientSocketList) {
-            socket.write(message);
+            if (mcs == null) {
+                socket.write(msg);
+            } else if (mcs.hashCode() != socket.hashCode()) {
+                socket.write(msg);
+            }
         }
     }
 
@@ -135,7 +149,7 @@ public class MultiServerApp {
         }
     }
 
-    class AcceptClientSocketThread implements Runnable {
+    class AcceptClientSocketThread extends Thread {
         @Override
         public void run() {
             while(true) {
@@ -143,6 +157,7 @@ public class MultiServerApp {
                     Socket accept = serverSocket.accept();
                     MultiClientSocket mcs = new MultiClientSocket(accept);
                     multiClientSocketList.add(mcs);
+                    System.out.printf("클라이언트[%s] 연결, [%d]\n", mcs.ipAddr, multiClientSocketList.size());
 
                     ReadClientSocketThread rcst = new ReadClientSocketThread(mcs);
                     rcst.start();
@@ -166,11 +181,14 @@ public class MultiServerApp {
             while(true) {
                 try {
                     String readMsg = this.myClientSocket.socketReader.readLine(); // 블로킹 상태
-                    System.out.printf("서버가 받은 메시지 : %s%n", readMsg);
+                    System.out.printf("%s : %s%n", this.myClientSocket.ipAddr, readMsg);
                     if( readMsg == null || "exit".equalsIgnoreCase(readMsg) ) {
-                        System.out.println("클라이언트 접속 해제");
                         this.myClientSocket.close();
+                        multiClientSocketList.remove(this.myClientSocket);
+                        System.out.printf("클라이언트 접속 해제, [%d]\n", multiClientSocketList.size());
                         break;
+                    } else {
+                        writeClientList(readMsg, this.myClientSocket);
                     }
                 } catch (Exception ex) {
                     try {

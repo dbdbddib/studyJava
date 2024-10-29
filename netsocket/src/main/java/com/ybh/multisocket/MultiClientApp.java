@@ -38,9 +38,9 @@ public class MultiClientApp {
         keyboardReader = new BufferedReader(
                 new InputStreamReader(System.in)
         );
-        socketWriter.write(String.format("클라이언트[%s] 에서 첫 문자열 전송 함", getMyIp()));
-        socketWriter.newLine();
-        socketWriter.flush();
+//        socketWriter.write(String.format("클라이언트[%s] 에서 첫 문자열 전송 함", getMyIp()));
+//        socketWriter.newLine();
+//        socketWriter.flush();
     }
     
     private String getMyIp() {
@@ -69,13 +69,10 @@ public class MultiClientApp {
             rsst.start();
 
             while (true) {
-//                String readMsg = socketReader.readLine(); // 블로킹 상태
-//                System.out.printf("서버 에서 받은 문자열 : %s%n", readMsg);
-//                if( "exit".equalsIgnoreCase(readMsg) ) {
-//                    break;
-//                }
-                System.out.print("클라이언트에서 문자열 입력 : ");
                 String keyboardMsg = this.keyboardReader.readLine(); // 블로킹 상태
+                if (keyboardMsg.isEmpty()) {
+                    continue;
+                }
                 this.socketWriter.write(keyboardMsg);
                 this.socketWriter.newLine();
                 this.socketWriter.flush();
@@ -122,8 +119,8 @@ public class MultiClientApp {
             while(true) {
                 try {
                     String readMsg = socketReader.readLine(); // 블로킹 상태
-                    System.out.printf("서버 에서 받은 문자열 : %s%n", readMsg);
-                    if ("exit".equalsIgnoreCase(readMsg)) {
+                    System.out.println(readMsg);
+                    if (readMsg == null || "Server : exit".equalsIgnoreCase(readMsg)) {
                         System.exit(-1);
                     }
                 } catch (IOException ex) {
